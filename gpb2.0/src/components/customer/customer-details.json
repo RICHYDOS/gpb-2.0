@@ -1,0 +1,36 @@
+{
+  "collectionName": "components_customer_customer_details",
+  "info": {
+    "displayName": "customerDetails"
+  },
+  "options": {},
+  "attributes": {
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "companyName": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "zipcode": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "address": {
+      "type": "text"
+    },
+    "phoneNumber": {
+      "type": "string"
+    }
+  }
+}

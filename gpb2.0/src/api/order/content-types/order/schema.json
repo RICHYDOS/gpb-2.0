@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "orders",
+  "info": {
+    "singularName": "order",
+    "pluralName": "orders",
+    "displayName": "order",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "customerDetails": {
+      "displayName": "customerDetails",
+      "type": "component",
+      "repeatable": false,
+      "component": "customer.customer-details"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "Pending",
+        "Success",
+        "Failed"
+      ],
+      "default": "Pending"
+    },
+    "productInfo": {
+      "displayName": "products",
+      "type": "component",
+      "repeatable": true,
+      "component": "customer.products",
+      "required": true
+    },
+    "total": {
+      "type": "biginteger",
+      "required": true
+    }
+  }
+}
