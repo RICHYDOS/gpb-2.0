@@ -708,6 +708,36 @@ export interface ApiClientClient extends Schema.CollectionType {
   };
 }
 
+export interface ApiMailingListMailingList extends Schema.CollectionType {
+  collectionName: 'mailing_lists';
+  info: {
+    singularName: 'mailing-list';
+    pluralName: 'mailing-lists';
+    displayName: 'mailingList';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    email: Attribute.Email & Attribute.Required & Attribute.Unique;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::mailing-list.mailing-list',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::mailing-list.mailing-list',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiOrderOrder extends Schema.CollectionType {
   collectionName: 'orders';
   info: {
@@ -795,6 +825,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::client.client': ApiClientClient;
+      'api::mailing-list.mailing-list': ApiMailingListMailingList;
       'api::order.order': ApiOrderOrder;
       'api::product.product': ApiProductProduct;
     }
