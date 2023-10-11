@@ -42,6 +42,13 @@ export default factories.createCoreController('api::order.order', ({strapi}) => 
             },
           });
     
-        return {clientSecret: paymentIntent.client_secret};
+        return {
+          clientSecret: paymentIntent.client_secret,
+          data: {
+            email,
+            customerDetails,
+            productInfo
+          }
+        };
       }
 }));
