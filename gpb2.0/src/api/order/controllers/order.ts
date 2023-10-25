@@ -22,17 +22,7 @@ export default factories.createCoreController('api::order.order', ({strapi}) => 
             }
         }
 
-        // Stripe Logic
-        // ---
-        const paymentIntent = await stripe.paymentIntents.create({
-            amount: amount,
-            currency: 'ngn',
-            automatic_payment_methods: {
-              enabled: true,
-            },
-          });
-        // ---
-
+        
         const order = await strapi.entityService.create('api::order.order', {
             data: {
               email,
@@ -42,6 +32,19 @@ export default factories.createCoreController('api::order.order', ({strapi}) => 
             },
           });
     
+          // Stripe Logic
+          // ---
+          const paymentIntent = await stripe.paymentIntents.create({
+              amount: amount,
+              currency: 'ngn',
+              automatic_payment_methods: {
+                enabled: true,
+              },
+              metadata: {
+                order_id: order.id
+              },
+            });
+          // ---
         return {
           clientSecret: paymentIntent.client_secret,
           data: {
