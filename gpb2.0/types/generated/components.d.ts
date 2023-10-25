@@ -25,13 +25,9 @@ export interface CustomerProducts extends Schema.Component {
     description: '';
   };
   attributes: {
-    product_id: Attribute.Relation<
-      'customer.products',
-      'oneToOne',
-      'api::order.order'
-    >;
     colour: Attribute.String & Attribute.DefaultTo<'Satisfactory'>;
     exclusivity: Attribute.Boolean & Attribute.DefaultTo<false>;
+    name: Attribute.String;
   };
 }
 

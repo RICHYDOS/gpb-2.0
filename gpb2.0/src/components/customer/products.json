@@ -6,11 +6,6 @@
   },
   "options": {},
   "attributes": {
-    "product_id": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::order.order"
-    },
     "colour": {
       "type": "string",
       "default": "Satisfactory"
@@ -18,6 +13,10 @@
     "exclusivity": {
       "type": "boolean",
       "default": false
+    },
+    "name": {
+      "type": "string",
+      "unique": false
     }
   }
 }

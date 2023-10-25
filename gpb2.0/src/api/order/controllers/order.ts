@@ -12,8 +12,9 @@ export default factories.createCoreController('api::order.order', ({strapi}) => 
 
         for (const element of productInfo) {
             const product = await strapi.entityService.findOne('api::product.product', element.productId, {
-                fields: ['price', 'discountPrice'],
+                fields: ['name','price', 'discountPrice'],
               });
+            element["name"] = product.name;
             if (product.discountPrice) {
                 amount = amount + Number(product.discountPrice);
             }
