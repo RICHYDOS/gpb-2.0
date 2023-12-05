@@ -3,7 +3,7 @@
  */
 
 import { factories } from '@strapi/strapi';
-const stripe = require('stripe')(process.env.STRAPI_ADMIN_TEST_STRIPE_SECRET_KEY);
+const stripe = require('stripe')(process.env.STRAPI_ADMIN_LIVE_STRIPE_LIVE_KEY);
 
 export default factories.createCoreController('api::order.order', ({strapi}) => ({
     async create(ctx) {
@@ -23,7 +23,6 @@ export default factories.createCoreController('api::order.order', ({strapi}) => 
             }
         }
 
-        
         const order = await strapi.entityService.create('api::order.order', {
             data: {
               email,
@@ -46,6 +45,7 @@ export default factories.createCoreController('api::order.order', ({strapi}) => 
               },
             });
           // ---
+          console.debug("Order Created");
         return {
           clientSecret: paymentIntent.client_secret,
           data: {
