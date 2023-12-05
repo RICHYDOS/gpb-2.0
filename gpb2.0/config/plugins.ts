@@ -12,8 +12,8 @@ export default ({ env }) => ({
             // ... any custom nodemailer options
           },
           settings: {
-            defaultFrom: 'richardosunmu@gmail.com',
-            defaultReplyTo: 'richarddosunmu123@gmail.com',
+            defaultFrom: 'daudujoe@gmail.com',
+            defaultReplyTo: 'daudujon@gmail.com',
           },
         },
     },
