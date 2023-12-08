@@ -1,0 +1,34 @@
+{
+  "collectionName": "components_product_background_changes",
+  "info": {
+    "displayName": "backgroundChange",
+    "icon": "rotate"
+  },
+  "options": {},
+  "attributes": {
+    "satifactory": {
+      "type": "enumeration",
+      "enum": [
+        "Satifactory"
+      ]
+    },
+    "change1": {
+      "type": "enumeration",
+      "enum": [
+        "change * 1"
+      ]
+    },
+    "change2": {
+      "type": "enumeration",
+      "enum": [
+        "change * 2"
+      ]
+    },
+    "change3": {
+      "type": "enumeration",
+      "enum": [
+        "change * 3"
+      ]
+    }
+  }
+}
