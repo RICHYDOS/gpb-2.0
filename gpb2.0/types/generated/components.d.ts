@@ -31,11 +31,26 @@ export interface CustomerProducts extends Schema.Component {
   };
 }
 
+export interface ProductBackgroundChange extends Schema.Component {
+  collectionName: 'components_product_background_changes';
+  info: {
+    displayName: 'backgroundChange';
+    icon: 'rotate';
+  };
+  attributes: {
+    satifactory: Attribute.Enumeration<['Satifactory']>;
+    change1: Attribute.Enumeration<['change * 1']>;
+    change2: Attribute.Enumeration<['change * 2']>;
+    change3: Attribute.Enumeration<['change * 3']>;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
       'customer.customer-details': CustomerCustomerDetails;
       'customer.products': CustomerProducts;
+      'product.background-change': ProductBackgroundChange;
     }
   }
 }
