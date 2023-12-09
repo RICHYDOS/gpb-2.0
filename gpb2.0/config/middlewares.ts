@@ -7,7 +7,9 @@ export default [
         useDefaults: true,
         directives: {
           'connect-src': ["'self'", 'https:'],
-          'img-src': ["'self'", 'data:', 'blob:', 'market-assets.strapi.io', 'res.cloudinary.com'],
+          "script-src": ["'self'", "editor.unlayer.com"],
+          "frame-src": ["'self'", "editor.unlayer.com"],
+          'img-src': ["'self'", 'data:', 'blob:', "cdn.jsdelivr.net", "strapi.io", "s3.amazonaws.com", 'market-assets.strapi.io', 'res.cloudinary.com'],
           'media-src': [
             "'self'",
             'data:',

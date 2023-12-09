@@ -9,52 +9,82 @@ export default factories.createCoreController(
   "api::order.order",
   ({ strapi }) => ({
     async create(ctx) {
-        const { email, customerDetails, productInfo } = ctx.request.body;
-        let amount = 0;
+      const { email, customerDetails, productInfo, paymentType } = ctx.request.body;
+      let amount = 0;
 
-        for (const element of productInfo) {
-            const product = await strapi.entityService.findOne('api::product.product', element.productId, {
-                fields: ['name','price', 'discountPrice'],
-              });
-            element["name"] = product.name;
-            if (product.discountPrice) {
-                amount = amount + Number(product.discountPrice);
-            }
-            else{
-                amount = amount + Number(product.price);
-            }
+      for (const element of productInfo) {
+        const product = await strapi.entityService.findOne('api::product.product', element.productId, {
+            fields: ['name','price','discountPrice'],
+        });
+        element["name"] = product.name;
+        if (product.discountPrice) {
+            amount = amount + Number(product.discountPrice);
         }
-
-        const order = await strapi.entityService.create('api::order.order', {
-            data: {
-              email,
-              total: amount,
-              customerDetails,
-              productInfo
-            },
-          });
-    
-          // Stripe Logic
-          // ---
-          const paymentIntent = await stripe.paymentIntents.create({
-              amount: amount,
-              currency: 'ngn',
-              automatic_payment_methods: {
-                enabled: true,
-              },
-              metadata: {
-                order_id: order.id
-              },
-            });
-          // ---
-          console.debug("Order Created");
-        return {
-          clientSecret: paymentIntent.client_secret,
-          data: {
-            email,
-            customerDetails,
-            productInfo
-          }
-        };
+        else{
+            amount = amount + Number(product.price);
+        }
       }
-}));
+
+      const order = await strapi.entityService.create('api::order.order', {
+        data: {
+          email,
+          total: amount,
+          customerDetails,
+          productInfo,
+          paymentType,
+        },
+      });
+
+      // Stripe Logic
+      // ---
+      let clientSecret = '';
+      if (paymentType === 'card') {
+        const paymentIntent = await stripe.paymentIntents.create({
+          amount: amount,
+          currency: 'ngn',
+          automatic_payment_methods: {
+            enabled: true,
+          },
+          metadata: {
+            order_id: order.id,
+          },
+        });
+
+        clientSecret = paymentIntent.client_secret;
+      // ---
+      }
+      else if (paymentType === 'bank transfer') {
+        try {
+          await strapi
+            .plugin("email-designer")
+            .service("email")
+            .sendTemplatedEmail(
+              {
+                to: email,
+              },
+              {
+                templateReferenceId: 2
+              },
+              {
+                name: customerDetails.firstName,
+              }
+            );
+            strapi.log.debug("📺: Email Sent Successfully to ", email);
+        } catch (err) {
+          strapi.log.debug("📺: ", err);
+          return ctx.badRequest(null, err);
+        }
+      }
+      console.debug("Order Created");
+
+      return {
+        clientSecret,
+        data: {
+          email,
+          customerDetails,
+          productInfo,
+        },
+      };
+    },
+  })
+);
