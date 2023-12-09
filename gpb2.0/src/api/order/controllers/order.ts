@@ -63,13 +63,13 @@ export default factories.createCoreController(
                 to: email,
               },
               {
-                templateReferenceId: 4,
-                subject: `GPB System: ${email} placed an order`,
+                templateReferenceId: 2
               },
               {
                 name: customerDetails.firstName,
               }
             );
+            strapi.log.debug("📺: Email Sent Successfully to ", email);
         } catch (err) {
           strapi.log.debug("📺: ", err);
           return ctx.badRequest(null, err);
