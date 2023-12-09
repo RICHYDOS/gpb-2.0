@@ -34,14 +34,15 @@ export interface CustomerProducts extends Schema.Component {
 export interface ProductBackgroundChange extends Schema.Component {
   collectionName: 'components_product_background_changes';
   info: {
-    displayName: 'backgroundChange';
+    displayName: 'BackgroundColourOptions';
     icon: 'rotate';
+    description: '';
   };
   attributes: {
-    satifactory: Attribute.Enumeration<['Satifactory']>;
-    change1: Attribute.Enumeration<['change * 1']>;
-    change2: Attribute.Enumeration<['change * 2']>;
-    change3: Attribute.Enumeration<['change * 3']>;
+    satisfied: Attribute.Boolean & Attribute.DefaultTo<false>;
+    change: Attribute.Boolean & Attribute.DefaultTo<false>;
+    changes2: Attribute.Boolean & Attribute.DefaultTo<false>;
+    changes3: Attribute.Boolean & Attribute.DefaultTo<false>;
   };
 }
 

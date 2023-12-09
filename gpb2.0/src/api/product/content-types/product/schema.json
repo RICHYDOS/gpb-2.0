@@ -40,11 +40,12 @@
       "type": "boolean",
       "default": false
     },
-    "backgroundChange": {
+    "backgroundColourOptions": {
       "displayName": "backgroundChange",
       "type": "component",
       "repeatable": false,
-      "component": "product.background-change"
+      "component": "product.background-change",
+      "required": true
     }
   }
 }

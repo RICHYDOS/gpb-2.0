@@ -1,34 +1,27 @@
 {
   "collectionName": "components_product_background_changes",
   "info": {
-    "displayName": "backgroundChange",
-    "icon": "rotate"
+    "displayName": "BackgroundColourOptions",
+    "icon": "rotate",
+    "description": ""
   },
   "options": {},
   "attributes": {
-    "satifactory": {
-      "type": "enumeration",
-      "enum": [
-        "Satifactory"
-      ]
+    "satisfied": {
+      "type": "boolean",
+      "default": false
     },
-    "change1": {
-      "type": "enumeration",
-      "enum": [
-        "change * 1"
-      ]
+    "change": {
+      "type": "boolean",
+      "default": false
     },
-    "change2": {
-      "type": "enumeration",
-      "enum": [
-        "change * 2"
-      ]
+    "changes2": {
+      "type": "boolean",
+      "default": false
     },
-    "change3": {
-      "type": "enumeration",
-      "enum": [
-        "change * 3"
-      ]
+    "changes3": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

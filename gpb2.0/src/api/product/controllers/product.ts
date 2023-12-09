@@ -9,7 +9,7 @@ export default factories.createCoreController('api::product.product', ({strapi})
     
         const { meta } = await super.find(ctx);
         const data = await strapi.entityService.findMany('api::product.product', {
-            populate: ['productImage', 'backgroundChange'],
+            populate: ['productImage', 'backgroundColourOptions'],
           });
     
         meta.date = Date.now()
@@ -18,9 +18,9 @@ export default factories.createCoreController('api::product.product', ({strapi})
       },
     
     async findOne(ctx) {
-        const { id } = ctx.request.params;
+        let { id } = ctx.request.params;
         const data = await strapi.entityService.findOne('api::product.product', id, {
-            populate: ['productImage', 'backgroundChange'],
+            populate: ['productImage', 'backgroundColourOptions'],
           });
         
         return data;
