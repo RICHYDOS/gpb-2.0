@@ -41,6 +41,14 @@
     "total": {
       "type": "biginteger",
       "required": true
+    },
+    "paymentType": {
+      "type": "enumeration",
+      "enum": [
+        "card",
+        "bank transfer"
+      ],
+      "required": true
     }
   }
 }
