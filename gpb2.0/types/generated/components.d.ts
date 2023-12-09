@@ -31,11 +31,27 @@ export interface CustomerProducts extends Schema.Component {
   };
 }
 
+export interface ProductBackgroundChange extends Schema.Component {
+  collectionName: 'components_product_background_changes';
+  info: {
+    displayName: 'BackgroundColourOptions';
+    icon: 'rotate';
+    description: '';
+  };
+  attributes: {
+    satisfied: Attribute.Boolean & Attribute.DefaultTo<false>;
+    change: Attribute.Boolean & Attribute.DefaultTo<false>;
+    changes2: Attribute.Boolean & Attribute.DefaultTo<false>;
+    changes3: Attribute.Boolean & Attribute.DefaultTo<false>;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
       'customer.customer-details': CustomerCustomerDetails;
       'customer.products': CustomerProducts;
+      'product.background-change': ProductBackgroundChange;
     }
   }
 }

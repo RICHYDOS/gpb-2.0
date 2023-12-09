@@ -4,7 +4,8 @@
   "info": {
     "singularName": "product",
     "pluralName": "products",
-    "displayName": "product"
+    "displayName": "product",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -24,12 +25,27 @@
       "type": "biginteger"
     },
     "productImage": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images",
         "files"
-      ],
-      "type": "media",
-      "multiple": true
+      ]
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "exclusivity": {
+      "type": "boolean",
+      "default": false
+    },
+    "backgroundColourOptions": {
+      "displayName": "backgroundChange",
+      "type": "component",
+      "repeatable": false,
+      "component": "product.background-change",
+      "required": true
     }
   }
 }

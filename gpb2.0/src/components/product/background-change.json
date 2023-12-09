@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_product_background_changes",
+  "info": {
+    "displayName": "BackgroundColourOptions",
+    "icon": "rotate",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "satisfied": {
+      "type": "boolean",
+      "default": false
+    },
+    "change": {
+      "type": "boolean",
+      "default": false
+    },
+    "changes2": {
+      "type": "boolean",
+      "default": false
+    },
+    "changes3": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}
