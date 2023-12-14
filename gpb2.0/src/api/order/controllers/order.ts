@@ -11,6 +11,7 @@ export default factories.createCoreController(
     async create(ctx) {
       const { email, customerDetails, productInfo, paymentType } = ctx.request.body;
       let amount = 0;
+      const products = [];
 
       for (const element of productInfo) {
         const product = await strapi.entityService.findOne('api::product.product', element.productId, {
@@ -23,6 +24,7 @@ export default factories.createCoreController(
         else{
             amount = amount + Number(product.price);
         }
+        products.push(product);
       }
 
       const order = await strapi.entityService.create('api::order.order', {
@@ -65,11 +67,20 @@ export default factories.createCoreController(
               {
                 templateReferenceId: 2
               },
-              {
-                name: customerDetails.firstName,
-              }
             );
-            strapi.log.debug("📺: Email Sent Successfully to ", email);
+          
+            await strapi
+            .plugin("email-designer")
+            .service("email")
+            .sendTemplatedEmail(
+              {
+                to: process.env.SMTP_USERNAME,
+              },
+              {
+                templateReferenceId: 2
+              },
+            );
+            strapi.log.debug(`📺: Email Sent Successfully to ${email} and ${process.env.SMTP_USERNAME}`);
         } catch (err) {
           strapi.log.debug("📺: ", err);
           return ctx.badRequest(null, err);
