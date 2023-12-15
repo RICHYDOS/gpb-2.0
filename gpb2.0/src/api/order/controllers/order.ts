@@ -20,17 +20,12 @@ export default factories.createCoreController(
           element.productId,
           {
             fields: ["name", "price", "discountPrice"],
-            populate: "productImage.formats.small.url",
+            populate: "productImage",
           }
         );
 
         element["name"] = product.name;
-        if (product.productImage) {
-          element["productImage"] = product.productImage.formats.small.url;
-        } else {
-          element["productImage"] =
-            "https://res.cloudinary.com/drxadr6gz/image/upload/v1695483982/small_abiodun1_a4810a39e9.webp";
-        }
+
         if (product.discountPrice) {
           element["price"] = product.discountPrice;
           amount = amount + Number(product.discountPrice);
@@ -38,8 +33,10 @@ export default factories.createCoreController(
           element["price"] = product.price;
           amount = amount + Number(product.price);
         }
+        product.productImage = product.productImage[0].formats.small.url;
         products.push(product);
       }
+      console.log(products);
 
       const order = await strapi.entityService.create("api::order.order", {
         data: {
@@ -81,12 +78,8 @@ export default factories.createCoreController(
                 templateReferenceId: 2,
               },
               {
-                customer: {
-                  firstname: customerDetails.firstName,
-                  lastname: customerDetails.lastName,
-                },
                 order_id: order.id,
-                products: productInfo,
+                products,
                 amount,
               }
             );
@@ -102,17 +95,13 @@ export default factories.createCoreController(
                 templateReferenceId: 2,
               },
               {
-                customer: {
-                  firstname: customerDetails.firstName,
-                  lastname: customerDetails.lastName,
-                },
                 order_id: order.id,
-                products: productInfo,
+                products,
                 amount,
               }
             );
           strapi.log.debug(
-            `📺: Email Sent Successfully to ${email} and ${process.env.SMTP_USERNAME}`
+            `📺: Emails Sent Successfully to ${email} and ${process.env.SMTP_USERNAME}`
           );
         } catch (err) {
           strapi.log.debug("📺: ", err);
