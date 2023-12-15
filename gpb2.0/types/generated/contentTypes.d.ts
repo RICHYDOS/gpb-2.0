@@ -726,6 +726,41 @@ export interface PluginEmailDesignerEmailTemplate
   };
 }
 
+export interface ApiBackgroundColorOptionBackgroundColorOption
+  extends Schema.CollectionType {
+  collectionName: 'background_color_options';
+  info: {
+    singularName: 'background-color-option';
+    pluralName: 'background-color-options';
+    displayName: 'backgroundColorOption';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    satisfied: Attribute.BigInteger & Attribute.DefaultTo<'0'>;
+    change: Attribute.BigInteger & Attribute.Required;
+    changes2: Attribute.BigInteger & Attribute.Required;
+    changes3: Attribute.BigInteger & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::background-color-option.background-color-option',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::background-color-option.background-color-option',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiClientClient extends Schema.CollectionType {
   collectionName: 'clients';
   info: {
@@ -881,6 +916,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::email-designer.email-template': PluginEmailDesignerEmailTemplate;
+      'api::background-color-option.background-color-option': ApiBackgroundColorOptionBackgroundColorOption;
       'api::client.client': ApiClientClient;
       'api::mailing-list.mailing-list': ApiMailingListMailingList;
       'api::order.order': ApiOrderOrder;
