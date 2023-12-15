@@ -9,19 +9,19 @@
   "attributes": {
     "satisfied": {
       "type": "boolean",
-      "default": false
+      "default": true
     },
     "change": {
       "type": "boolean",
-      "default": false
+      "default": true
     },
     "changes2": {
       "type": "boolean",
-      "default": false
+      "default": true
     },
     "changes3": {
       "type": "boolean",
-      "default": false
+      "default": true
     }
   }
 }
