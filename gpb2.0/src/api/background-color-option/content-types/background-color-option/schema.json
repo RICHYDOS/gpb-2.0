@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "background_color_options",
+  "info": {
+    "singularName": "background-color-option",
+    "pluralName": "background-color-options",
+    "displayName": "backgroundColorOption",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "satisfied": {
+      "type": "biginteger",
+      "default": "0"
+    },
+    "change": {
+      "type": "biginteger",
+      "required": true
+    },
+    "changes2": {
+      "type": "biginteger",
+      "required": true
+    },
+    "changes3": {
+      "type": "biginteger",
+      "required": true
+    }
+  }
+}

@@ -41,7 +41,6 @@
       "default": false
     },
     "backgroundColourOptions": {
-      "displayName": "backgroundChange",
       "type": "component",
       "repeatable": false,
       "component": "product.background-change",

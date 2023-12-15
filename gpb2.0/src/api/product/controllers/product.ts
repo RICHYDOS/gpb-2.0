@@ -29,7 +29,20 @@ export default factories.createCoreController(
         }
       );
 
-      return data;
+      const colourOptions = await strapi.entityService.findMany(
+        "api::background-color-option.background-color-option"
+      );
+
+      for (const option in data.backgroundColourOptions) {
+        if (option !== "id" && data.backgroundColourOptions[option]) {
+          data.backgroundColourOptions[option] = [
+            data.backgroundColourOptions[option],
+            colourOptions[0][option],
+          ];
+        }
+      }
+
+      return { data };
     },
   })
 );
