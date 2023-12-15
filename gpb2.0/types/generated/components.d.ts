@@ -39,10 +39,10 @@ export interface ProductBackgroundChange extends Schema.Component {
     description: '';
   };
   attributes: {
-    satisfied: Attribute.Boolean & Attribute.DefaultTo<false>;
-    change: Attribute.Boolean & Attribute.DefaultTo<false>;
-    changes2: Attribute.Boolean & Attribute.DefaultTo<false>;
-    changes3: Attribute.Boolean & Attribute.DefaultTo<false>;
+    satisfied: Attribute.Boolean & Attribute.DefaultTo<true>;
+    change: Attribute.Boolean & Attribute.DefaultTo<true>;
+    changes2: Attribute.Boolean & Attribute.DefaultTo<true>;
+    changes3: Attribute.Boolean & Attribute.DefaultTo<true>;
   };
 }
 
