@@ -27,6 +27,11 @@
     "changes3": {
       "type": "biginteger",
       "required": true
+    },
+    "exclusivity": {
+      "type": "biginteger",
+      "default": "0",
+      "required": true
     }
   }
 }

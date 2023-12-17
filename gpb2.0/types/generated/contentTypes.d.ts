@@ -743,6 +743,9 @@ export interface ApiBackgroundColorOptionBackgroundColorOption
     change: Attribute.BigInteger & Attribute.Required;
     changes2: Attribute.BigInteger & Attribute.Required;
     changes3: Attribute.BigInteger & Attribute.Required;
+    exclusivity: Attribute.BigInteger &
+      Attribute.Required &
+      Attribute.DefaultTo<'0'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
