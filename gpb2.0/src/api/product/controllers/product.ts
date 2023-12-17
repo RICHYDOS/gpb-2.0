@@ -8,15 +8,21 @@ export default factories.createCoreController(
   "api::product.product",
   ({ strapi }) => ({
     async find(ctx) {
-      const { meta } = await super.find(ctx);
       const data = await strapi.entityService.findMany("api::product.product", {
         filters: { exclusivity: false },
-        populate: ["productImage", "backgroundColourOptions"],
+        populate: {
+          productImage: {
+            fields: ['url']
+          },
+          backgroundColourOptions: true
+        }
       });
 
-      meta.date = Date.now();
+      const colourOptions = await strapi.entityService.findMany(
+        "api::background-color-option.background-color-option"
+      );
 
-      return { data, meta };
+      return { data, colourOptions };
     },
 
     async findOne(ctx) {
