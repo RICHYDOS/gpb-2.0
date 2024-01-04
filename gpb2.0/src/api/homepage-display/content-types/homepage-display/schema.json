@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "homepage_displays",
+  "info": {
+    "singularName": "homepage-display",
+    "pluralName": "homepage-displays",
+    "displayName": "homepageDisplay"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "banner": {
+      "displayName": "banner",
+      "type": "component",
+      "repeatable": false,
+      "component": "website.banner"
+    },
+    "learnOurStorySection": {
+      "allowedTypes": [
+        "images",
+        "files"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "gpbFabricsSection": {
+      "allowedTypes": [
+        "images",
+        "files"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "gpbClientsSection": {
+      "allowedTypes": [
+        "images",
+        "files"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}
