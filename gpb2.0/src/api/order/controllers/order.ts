@@ -80,13 +80,13 @@ export default factories.createCoreController(
         },
       });
 
-      amount = amount * 100
+      const final_amount = amount * 100
       // Stripe Logic
       // ---
       let clientSecret = "";
       if (paymentType === "card") {
         const paymentIntent = await stripe.paymentIntents.create({
-          amount: amount,
+          amount: final_amount,
           currency: "ngn",
           automatic_payment_methods: {
             enabled: true,
