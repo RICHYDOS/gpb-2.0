@@ -2,7 +2,6 @@
  * order controller
  */
 import {SMTP_USERNAME} from '../../../../config/environment';
-
 import { factories } from "@strapi/strapi";
 const stripe = require("stripe")(process.env.STRAPI_ADMIN_LIVE_STRIPE_LIVE_KEY);
 
@@ -15,6 +14,10 @@ export default factories.createCoreController(
       const products = [];
 
       for (const element of productInfo) {
+        const colourOptions = await strapi.entityService.findMany(
+          "api::background-color-option.background-color-option"
+        );
+
         const product = await strapi.entityService.findOne(
           "api::product.product",
           element.productId,
@@ -22,19 +25,47 @@ export default factories.createCoreController(
             fields: ["name", "price", "discountPrice"],
             populate: "productImage",
           }
-        );
-
+        )
         element["name"] = product.name;
+        let price = 0;
 
         if (product.discountPrice) {
-          element["price"] = product.discountPrice;
-          amount = amount + Number(product.discountPrice);
+          price = Number(product.discountPrice);
+          if (element.colour.toLowerCase() === "satisfied") {
+            price = price + Number(colourOptions[0].satisfied);
+          } else if (element.colour.toLowerCase() === "change") {
+            price = price + Number(colourOptions[0].change);
+          } else if (element.colour.toLowerCase() === "changes2") {
+            price = price + Number(colourOptions[0].changes2);
+          } else if (element.colour.toLowerCase() === "changes3") {
+            price = price + Number(colourOptions[0].changes3);
+          }
+  
+          if (element.exclusivity === true) {
+            price = price + Number(colourOptions[0].exclusivity)
+          }
+          amount = amount + price;
         } else {
-          element["price"] = product.price;
-          amount = amount + Number(product.price);
+          price = Number(product.price);
+          if (element.colour.toLowerCase() === "satisfied") {
+            price = price + Number(colourOptions[0].satisfied);
+          } else if (element.colour.toLowerCase() === "change") {
+            price = price + Number(colourOptions[0].change);
+          } else if (element.colour.toLowerCase() === "changes2") {
+            price = price + Number(colourOptions[0].changes2);
+          } else if (element.colour.toLowerCase() === "changes3") {
+            price = price + Number(colourOptions[0].changes3);
+          }
+  
+          if (element.exclusivity === true) {
+            price = price + Number(colourOptions[0].exclusivity)
+          }
+          amount = amount + price;
         }
+
         product.productImage = product.productImage[0].formats.small.url;
-        product.price = Number(product.price).toLocaleString();
+        product["colour"] = element.colour.toLowerCase();
+        product.price = price.toLocaleString();
         products.push(product);
       }
       console.log(products);
@@ -107,19 +138,19 @@ export default factories.createCoreController(
             `📺: Emails Sent Successfully to ${email} and ${SMTP_USERNAME}`
           );
         } catch (err) {
-          strapi.log.debug("📺: ", err);
+          strapi.log.error("📺: ", err);
           return ctx.badRequest(null, err);
         }
       }
-      console.debug("Order Created");
+      strapi.log.debug("Order Created");
 
       return {
         clientSecret,
         data: {
           email,
           customerDetails,
-          productInfo,
-          amount,
+          products,
+          amount: amount.toLocaleString(),
         },
       };
     },
