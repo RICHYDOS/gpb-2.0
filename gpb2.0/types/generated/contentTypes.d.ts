@@ -825,6 +825,37 @@ export interface ApiMailingListMailingList extends Schema.CollectionType {
   };
 }
 
+export interface ApiNewsletterNewsletter extends Schema.CollectionType {
+  collectionName: 'newsletters';
+  info: {
+    singularName: 'newsletter';
+    pluralName: 'newsletters';
+    displayName: 'newsletter';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    subject: Attribute.String & Attribute.Required;
+    reference_id: Attribute.Integer & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::newsletter.newsletter',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::newsletter.newsletter',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiOrderOrder extends Schema.CollectionType {
   collectionName: 'orders';
   info: {
@@ -922,6 +953,7 @@ declare module '@strapi/types' {
       'api::background-color-option.background-color-option': ApiBackgroundColorOptionBackgroundColorOption;
       'api::client.client': ApiClientClient;
       'api::mailing-list.mailing-list': ApiMailingListMailingList;
+      'api::newsletter.newsletter': ApiNewsletterNewsletter;
       'api::order.order': ApiOrderOrder;
       'api::product.product': ApiProductProduct;
     }
