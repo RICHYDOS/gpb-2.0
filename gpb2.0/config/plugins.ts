@@ -1,13 +1,15 @@
+import {SMTP_HOST, SMTP_PORT, SMTP_USERNAME, SMTP_PASSWORD} from '../config/environment';
+
 export default ({ env }) => ({
   email: {
     config: {
       provider: "nodemailer",
       providerOptions: {
-        host: env("SMTP_HOST"),
-        port: env("SMTP_PORT", 587),
+        host: SMTP_HOST,
+        port: SMTP_PORT || 587,
         auth: {
-          user: env("SMTP_USERNAME"),
-          pass: env("SMTP_PASSWORD"),
+          user: SMTP_USERNAME,
+          pass: SMTP_PASSWORD,
         },
         // ... any custom nodemailer options
       },

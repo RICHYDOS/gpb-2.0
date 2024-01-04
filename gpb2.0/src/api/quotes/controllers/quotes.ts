@@ -1,3 +1,5 @@
+import {SMTP_USERNAME} from '../../../../config/environment';
+
 module.exports = {
     async send(ctx) {
         const { email, subject, message, name } = ctx.request.body;
@@ -20,7 +22,7 @@ module.exports = {
             .service("email")
             .sendTemplatedEmail(
               {
-                to: process.env.SMTP_USERNAME,
+                to: SMTP_USERNAME,
               },
               {
                 templateReferenceId: 6
@@ -32,8 +34,8 @@ module.exports = {
                 email
               }
             );
-            strapi.log.debug(`📺: Emails Sent Successfully to ${email} and ${process.env.SMTP_USERNAME}`);
-            return `📺: Emails Sent Successfully to ${email} and ${process.env.SMTP_USERNAME}`;
+            strapi.log.debug(`📺: Emails Sent Successfully to ${email} and ${SMTP_USERNAME}`);
+            return `📺: Emails Sent Successfully to ${email} and ${SMTP_USERNAME}`;
         } catch (err) {
           strapi.log.debug("📺: ", err);
         }

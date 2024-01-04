@@ -1,6 +1,7 @@
 /**
  * order controller
  */
+import {SMTP_USERNAME} from '../../../../config/environment';
 
 import { factories } from "@strapi/strapi";
 const stripe = require("stripe")(process.env.STRAPI_ADMIN_LIVE_STRIPE_LIVE_KEY);
@@ -9,8 +10,7 @@ export default factories.createCoreController(
   "api::order.order",
   ({ strapi }) => ({
     async create(ctx) {
-      const { email, customerDetails, productInfo, paymentType } =
-        ctx.request.body;
+      const { email, customerDetails, productInfo, paymentType } = ctx.request.body;
       let amount = 0;
       const products = [];
 
@@ -34,6 +34,7 @@ export default factories.createCoreController(
           amount = amount + Number(product.price);
         }
         product.productImage = product.productImage[0].formats.small.url;
+        product.price = Number(product.price).toLocaleString();
         products.push(product);
       }
       console.log(products);
@@ -76,11 +77,12 @@ export default factories.createCoreController(
               },
               {
                 templateReferenceId: 2,
+                subject: 'GPB Order Confirmation',
               },
               {
                 order_id: order.id,
                 products,
-                amount,
+                amount: amount.toLocaleString(),
               }
             );
 
@@ -89,19 +91,20 @@ export default factories.createCoreController(
             .service("email")
             .sendTemplatedEmail(
               {
-                to: process.env.SMTP_USERNAME,
+                to: SMTP_USERNAME,
               },
               {
                 templateReferenceId: 2,
+                subject: 'GPB Order Confirmation',
               },
               {
                 order_id: order.id,
                 products,
-                amount,
+                amount: amount.toLocaleString(),
               }
             );
           strapi.log.debug(
-            `📺: Emails Sent Successfully to ${email} and ${process.env.SMTP_USERNAME}`
+            `📺: Emails Sent Successfully to ${email} and ${SMTP_USERNAME}`
           );
         } catch (err) {
           strapi.log.debug("📺: ", err);
