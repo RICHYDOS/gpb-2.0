@@ -1,4 +1,4 @@
-let connection, client;
+let connection, client, SMTP_HOST, SMTP_PORT, SMTP_USERNAME, SMTP_PASSWORD;
 
 if (process.env.ENVIRONMENT == "development") {
     connection = {
@@ -19,6 +19,11 @@ if (process.env.ENVIRONMENT == "development") {
         schema: process.env.DATABASE_SCHEMA || 'public'
     };
     client = process.env.DEVELOPMENT_DATABASE_CLIENT || 'sqlite';
+    SMTP_HOST = process.env.DEVELOPMENT_SMTP_HOST;
+    SMTP_PORT = process.env.DEVELOPMENT_SMTP_PORT;
+    SMTP_USERNAME = process.env.DEVELOPMENT_SMTP_USERNAME;
+    SMTP_PASSWORD = process.env.DEVELOPMENT_SMTP_PASSWORD;
+
 } else if (process.env.ENVIRONMENT == "production") {
     connection = {
         connectionString: process.env.DATABASE_URL,
@@ -38,9 +43,10 @@ if (process.env.ENVIRONMENT == "development") {
         schema: process.env.DATABASE_SCHEMA || 'public'
     };
     client = process.env.PRODUCTION_DATABASE_CLIENT || 'sqlite';
+    SMTP_HOST = process.env.PRODUCTION_SMTP_HOST;
+    SMTP_PORT = process.env.PRODUCTION_SMTP_PORT;
+    SMTP_USERNAME = process.env.PRODUCTION_SMTP_USERNAME;
+    SMTP_PASSWORD = process.env.PRODUCTION_SMTP_PASSWORD;
 }
 
-// connection.schema = process.env.DATABASE_SCHEMA || 'public';
-// connection.connectionString = process.env.DATABASE_URL;
-
-export {connection, client};
+export {connection, client, SMTP_HOST, SMTP_PASSWORD, SMTP_PORT, SMTP_USERNAME};
