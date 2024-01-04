@@ -85,7 +85,7 @@ export default factories.createCoreController(
       let clientSecret = "";
       if (paymentType === "card") {
         const paymentIntent = await stripe.paymentIntents.create({
-          amount: amount * 100,
+          amount: amount,
           currency: "ngn",
           automatic_payment_methods: {
             enabled: true,
