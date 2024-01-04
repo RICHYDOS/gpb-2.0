@@ -795,6 +795,39 @@ export interface ApiClientClient extends Schema.CollectionType {
   };
 }
 
+export interface ApiHomepageDisplayHomepageDisplay
+  extends Schema.CollectionType {
+  collectionName: 'homepage_displays';
+  info: {
+    singularName: 'homepage-display';
+    pluralName: 'homepage-displays';
+    displayName: 'homepageDisplay';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    banner: Attribute.Component<'website.banner'>;
+    learnOurStorySection: Attribute.Media;
+    gpbFabricsSection: Attribute.Media;
+    gpbClientsSection: Attribute.Media;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::homepage-display.homepage-display',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::homepage-display.homepage-display',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiMailingListMailingList extends Schema.CollectionType {
   collectionName: 'mailing_lists';
   info: {
@@ -952,6 +985,7 @@ declare module '@strapi/types' {
       'plugin::email-designer.email-template': PluginEmailDesignerEmailTemplate;
       'api::background-color-option.background-color-option': ApiBackgroundColorOptionBackgroundColorOption;
       'api::client.client': ApiClientClient;
+      'api::homepage-display.homepage-display': ApiHomepageDisplayHomepageDisplay;
       'api::mailing-list.mailing-list': ApiMailingListMailingList;
       'api::newsletter.newsletter': ApiNewsletterNewsletter;
       'api::order.order': ApiOrderOrder;

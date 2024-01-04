@@ -46,12 +46,24 @@ export interface ProductBackgroundChange extends Schema.Component {
   };
 }
 
+export interface WebsiteBanner extends Schema.Component {
+  collectionName: 'components_website_banners';
+  info: {
+    displayName: 'banner';
+  };
+  attributes: {
+    desktop: Attribute.Media;
+    mobile: Attribute.Media;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
       'customer.customer-details': CustomerCustomerDetails;
       'customer.products': CustomerProducts;
       'product.background-change': ProductBackgroundChange;
+      'website.banner': WebsiteBanner;
     }
   }
 }
