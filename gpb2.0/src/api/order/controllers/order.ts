@@ -80,6 +80,7 @@ export default factories.createCoreController(
         },
       });
 
+      amount = amount * 100
       // Stripe Logic
       // ---
       let clientSecret = "";
